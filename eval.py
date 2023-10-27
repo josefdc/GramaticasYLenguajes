@@ -4,6 +4,7 @@ Script to generate an AST from a logical expression using plyplus.
 
 import sys
 from plyplus import Grammar
+from ASTTraverser import ASTTraverser
 
 if __name__ == '__main__':
     if len(sys.argv) != 3:
@@ -16,3 +17,6 @@ if __name__ == '__main__':
                 scode = sc.read()
                 ast = Grammar(grm.read(), auto_filter_tokens=False).parse(scode)
                 ast.to_png_with_pydot(ASTFile)
+                print("Starting evaluation")
+                t = ASTTraverser()
+                t.visit(ast)

@@ -2,11 +2,13 @@ start: logicalexpression;
 
 logicalexpression:
      '\(' logicalexpression '\)'
+     |logicalexpression TCONJ logicalexpression
     | '!' logicalexpression 
     |TRUE
     |FALSE
     ;
 
+TCONJ : 'and';
 TRUE : 'true';
 FALSE : 'false';
 
