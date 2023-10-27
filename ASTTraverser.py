@@ -17,7 +17,21 @@ class ASTTraverser(object):
 
     def start(self, tree):
         print("Start*- {}".format(tree))
-        program = tree.tail[0]
-        #self.visit(program)
+        # la regla start solo puede tener un hijo (segun la gramatica) y estará
+        # en tree.tail[0]
+        le = tree.tail[0]
+        self.visit(le)
+    
+    def logicalexpression(self, tree):
+        print("Logical expression {}".format(tree))
+        print(len(tree.tail))
+        if len(tree.tail) == 1:
+            self.visit(tree.tail[0])
+        else:
+            print("No implementado")
+    
+    def parenle(self, tree):
+        print("parenle {}".format(tree))
+        print(len(tree.tail))
 
    

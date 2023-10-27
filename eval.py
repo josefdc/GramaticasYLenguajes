@@ -15,8 +15,11 @@ if __name__ == '__main__':
         with open('bool.g', 'r', encoding='utf-8') as grm:
             with open(sourceFile, 'r', encoding='utf-8') as sc:
                 scode = sc.read()
+                # Crear el AST para la expresión en sourceFile
                 ast = Grammar(grm.read(), auto_filter_tokens=False).parse(scode)
+                # Exportar el AST como imagen
                 ast.to_png_with_pydot(ASTFile)
                 print("Starting evaluation")
+                # Visitar el AST para evaluarlo
                 t = ASTTraverser()
                 t.visit(ast)
