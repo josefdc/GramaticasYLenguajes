@@ -1,17 +1,35 @@
 start: logicalexpression;
 
 logicalexpression:
-     '\(' logicalexpression '\)'
-    | '!' logicalexpression 
-    |  logicalexpression OR logicalexpression
-    |  logicalexpression ORA logicalexpression
-    |  logicalexpression IMPL logicalexpression
-    |  logicalexpression DIMPL logicalexpression
-    |TRUE
-    |FALSE
+        parenle
+    |   negation 
+    |   conj
+    |   disyu
+    |   implication
+    |   dimplication
+    |   TRUE
+    |   FALSE
     ;
 
 
+
+parenle: '\(' logicalexpression '\)';
+
+negation: '!' logicalexpression;
+
+conj: logicalexpression AND logicalexpression |
+        logicalexpression ANDM logicalexpression;
+
+disyu: logicalexpression OR logicalexpression
+    |   logicalexpression ORA logicalexpression;
+
+implication: logicalexpression IMPL logicalexpression;
+
+dimplication: logicalexpression DIMPL logicalexpression;
+
+
+AND: 'and';
+ANDM: '\*';
 DIMPL: '<=>';
 IMPL: '=>';
 OR: 'or';

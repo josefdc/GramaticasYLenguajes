@@ -22,4 +22,5 @@ if __name__ == '__main__':
                 print("Starting evaluation")
                 # Visitar el AST para evaluarlo
                 t = ASTTraverser()
-                t.visit(ast)
+                result=t.visit(ast)
+                print("Resultado evaluacion",result)
