@@ -30,24 +30,7 @@ class ASTTraverser(object):
             return self.visit(tree.tail[0])
         else:
             print("ENTRO AQUI")
-            # Procesar operaciones lógicas
-            if tree.head == 'negation':
-                return not self.visit(tree.tail[1])
-            elif tree.head in ('conj', 'disyu', 'implication', 'dimplication'):
-                left = self.visit(tree.tail[0])
-                right = self.visit(tree.tail[2])
-                return self.evaluate_logical_operation(tree.head, left, right)
-
-
-    def evaluate_logical_operation(self, operator, left, right):
-        if operator == 'conj':
-            return left and right
-        elif operator == 'disyu':
-            return left or right
-        elif operator == 'implication':
-            return (not left) or right
-        elif operator == 'dimplication':
-            return (left and right) or (not left and not right)
+            
 
     def TRUE(self, tree):
         return True

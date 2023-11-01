@@ -1,8 +1,8 @@
 start: logicalexpression;
 
 logicalexpression:
-        parenle
-    |   negation 
+        negation
+    |   parenle 
     |   conj
     |   disyu
     |   implication
@@ -13,9 +13,12 @@ logicalexpression:
 
 
 
+
+negation: NEG logicalexpression;
+
+
 parenle: '\(' logicalexpression '\)';
 
-negation: '!' logicalexpression;
 
 conj: logicalexpression AND logicalexpression |
         logicalexpression ANDM logicalexpression;
@@ -36,7 +39,7 @@ OR: 'or';
 ORA: '\+';
 TRUE : 'true';
 FALSE : 'false';
-
+NEG: '!';
 
 
 OPC: '/\*';
