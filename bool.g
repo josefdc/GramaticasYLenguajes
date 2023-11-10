@@ -1,50 +1,84 @@
-start: logicalexpression;
+start: program;
+
+program  : functiondef* expression;
+
+functiondef:  DEF ID LPAR (ID (',' ID)*)*  RPAR LCBR expression RCBR;
+
+
+@expression:
+	  parexpression
+	| conditional
+	| functioncall
+	| mulexpr
+	| addexpr
+	| number 
+	| variable
+	;
+
+parexpression:
+  LPAR expression RPAR;
+
+conditional:
+	IF LPAR logicalexpression RPAR LCBR expression RCBR ELSE LCBR expression RCBR;
+
+functioncall:
+	ID LPAR (expression (',' expression)*)* RPAR;
+
+mulexpr:
+	expression (MUL | DIV | MOD) expression;
+
+addexpr:
+	expression (ADD | SUB) expression;
+
+variable:
+	ID;
 
 logicalexpression:
-        negation
-    |   parenle 
-    |   conj
-    |   disyu
-    |   implication
-    |   dimplication
-    |   TRUE
-    |   FALSE
-    ;
+	expression (LT | GT | LEQ | GEQ | EQ | NEQ) expression
+	| TRUE
+	| FALSE
+	;
+/**
+ * Lexer rules
+ *
+ * Here we define the tokens identified by the lexer.
+ */
 
+// Comments
+OPEN_COMMENT :  '/\*';
+CLOSE_COMMENT :  '\*/';
+COMMENT : OPEN_COMMENT '.*?' CLOSE_COMMENT (%ignore);
 
+// Arithmetic operations
+ADD  :  '\+';
+SUB  :  '-';
+MUL  :  '\*';
+DIV  :  '/';
+MOD  :  '%';
 
+// Boolean operations
+LT  :  '<';
+GT  :  '>';
+LEQ :  '<=';
+GEQ :  '>=';
+EQ  :  '==';
+NEQ  : '!=';
 
-negation: NEG logicalexpression;
+LPAR : '\(';
+RPAR : '\)';
+LCBR : '{';
+RCBR : '}';
 
-
-parenle: '\(' logicalexpression '\)';
-
-
-conj: logicalexpression AND logicalexpression |
-        logicalexpression ANDM logicalexpression;
-
-disyu: logicalexpression OR logicalexpression
-    |   logicalexpression ORA logicalexpression;
-
-implication: logicalexpression IMPL logicalexpression;
-
-dimplication: logicalexpression DIMPL logicalexpression;
-
-
-AND: 'and';
-ANDM: '\*';
-DIMPL: '<=>';
-IMPL: '=>';
-OR: 'or';
-ORA: '\+';
-TRUE : 'true';
-FALSE : 'false';
-NEG: '!';
-
-
-OPC: '/\*';
-CPC: '\*/';
-COMMENT: OPC'.*?' CPC (%ignore);
+// Integers and identifiers
+number: '[0-9]+';
+ID: '[a-z]+'
+	(%unless
+		DEF: 'def';
+		IF    : 'if';
+		ELSE  : 'else';
+		TRUE  : 'true';
+		FALSE : 'false';		
+	);
 
 // Ignore white space, tab and new lines.
-WS: '[ \t\r\n]+' (%ignore);		
+WS: '[ \t\r\n]+' (%ignore);	
