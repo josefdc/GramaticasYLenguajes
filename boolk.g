@@ -2,14 +2,9 @@ start: program;
 
 program  : functiondef* expression;
 
-functiondef:  DEF ID LPAR (parameter  (',' parameter)*)*  RPAR LCBR expression RCBR;
+functiondef:  DEF ID LPAR (parameter (',' parameter)*)?  RPAR LCBR expression RCBR;
 
-parameter: something|listDef|functioncall;
-
-//List 
-listDef: LPAR ID '[' 'list' elements ']' RPAR;
-elements: (something)*;
-something: ID|number;
+parameter: ID | list | functioncall;
 
 @expression:
 	  parexpression
@@ -19,7 +14,7 @@ something: ID|number;
 	| addexpr
 	| number 
 	| variable
-	| listDef
+    | list
 	;
 
 parexpression:
@@ -39,6 +34,8 @@ addexpr:
 
 variable:
 	ID;
+
+list: ID LPAR (expression (',' expression)*)* RPAR;
 
 logicalexpression:
 	expression (LT | GT | LEQ | GEQ | EQ | NEQ) expression
@@ -88,4 +85,4 @@ ID: '[a-z]+'
 	);
 
 // Ignore white space, tab and new lines.
-WS: '[ \t\r\n]+' (%ignore);		
+WS: '[ \t\r\n]+' (%ignore);	

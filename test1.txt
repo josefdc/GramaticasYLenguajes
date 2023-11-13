@@ -1,4 +1,12 @@
-def factorial(n) {
+def factorial(a) {
+	if (n == 0) { 
+		1 
+	} else {
+		n * factorial(n-1)
+	}
+}
+
+def proper(lisa(1,2,3),factorial(b)) {
 	if (n == 0) { 
 		1 
 	} else {
@@ -7,3 +15,5 @@ def factorial(n) {
 }
 
 factorial(5)
+
+

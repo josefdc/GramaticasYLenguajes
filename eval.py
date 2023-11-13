@@ -12,7 +12,7 @@ if __name__ == '__main__':
     else:
         sourceFile = sys.argv[1]
         ASTFile = sys.argv[2]
-        with open('bool.g', 'r', encoding='utf-8') as grm:
+        with open('boolk.g', 'r', encoding='utf-8') as grm:
             with open(sourceFile, 'r', encoding='utf-8') as sc:
                 scode = sc.read()
                 # Crear el AST para la expresión en sourceFile
