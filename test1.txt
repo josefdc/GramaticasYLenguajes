@@ -1,19 +1,7 @@
-def factorial(a) {
-	if (n == 0) { 
-		1 
-	} else {
-		n * factorial(n-1)
-	}
+def suma(a, b) {
+    a + b
 }
 
-def proper(lisa(1,2,3),factorial(b)) {
-	if (n == 0) { 
-		1 
-	} else {
-		n * factorial(n-1)
-	}
-}
-
-factorial(5)
+suma(3, 4)
 
 
